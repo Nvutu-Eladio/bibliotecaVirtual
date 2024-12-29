@@ -24,5 +24,4 @@ public class LivroResponseDTO {
     private String genero;
 
     private Boolean disponivel;
-
 }
