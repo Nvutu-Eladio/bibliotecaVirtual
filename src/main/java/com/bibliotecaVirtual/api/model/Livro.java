@@ -1,5 +1,6 @@
 package com.bibliotecaVirtual.api.model;
 
+import com.bibliotecaVirtual.api.dto.request.LivroRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
