@@ -8,17 +8,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/livros")
@@ -47,10 +38,23 @@ public class LivroController {
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista todos os livros"),
+            @ApiResponse(responseCode = "400", description = "Livro com id não encontrado")
     })
     @GetMapping
-    public ResponseEntity<List<LivroResponseDTO>> obterLivro() {
-        return ResponseEntity.ok(livroService.obterLivro());
+    public ResponseEntity<?> obterLivro(@RequestParam(value = "id", required = false) Long id) {
+
+        return ResponseEntity.ok(
+                id != null ? livroService.obterLivroPorId(id) : livroService.obterLivro()
+        );
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista todos os livros por id"),
+            @ApiResponse(responseCode = "400", description = "Livro com id não encontrado")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<LivroResponseDTO> obterLivroPorId(@PathVariable("id") Long id){
+        return ResponseEntity.ok(livroService.obterLivroPorId(id));
     }
 
     @ApiResponses(value = {

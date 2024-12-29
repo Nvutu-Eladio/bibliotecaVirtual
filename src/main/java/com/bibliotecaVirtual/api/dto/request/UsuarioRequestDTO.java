@@ -1,8 +1,5 @@
-package com.bibliotecaVirtual.api.dto.response;
+package com.bibliotecaVirtual.api.dto.request;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UsuarioResponseDTO {
-
-    private Long usuarioId;
+public class UsuarioRequestDTO {
 
     private String nome;
 
@@ -35,5 +30,4 @@ public class UsuarioResponseDTO {
     private String complemento;
 
     private String tipo;
-
 }

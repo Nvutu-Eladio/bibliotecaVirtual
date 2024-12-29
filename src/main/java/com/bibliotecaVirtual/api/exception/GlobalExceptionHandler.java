@@ -17,4 +17,14 @@ public class GlobalExceptionHandler  {
     public ResponseEntity<String> handleLivroNotFoundException(LivroNotFoundException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+
+    @ExceptionHandler(UsuarioJaCadastradoException.class)
+    public ResponseEntity<String> handleUsuarioJaCadastradoException(UsuarioJaCadastradoException ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public ResponseEntity<String> handleUsuarioNotFoundException(UsuarioNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 }

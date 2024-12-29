@@ -41,6 +41,16 @@ public class LivroService {
     }
 
 
+    public LivroResponseDTO obterLivroPorId(Long id){
+
+        Livro livro = livroRepository.findById(id).orElseThrow(()
+                -> new LivroNotFoundException("Livro com ID " + id + " não encontrado"));
+
+        return LivroMapper.INSTANCE.convertEntityToDto(livro);
+
+    }
+
+
     public LivroResponseDTO atualizar(String id, LivroRequestDTO requestDTO) {
         Livro livro = livroRepository.findById(Long.valueOf(id)).orElseThrow(() -> new LivroNotFoundException("Erro ao atualizar livro no banco de dados"));
 

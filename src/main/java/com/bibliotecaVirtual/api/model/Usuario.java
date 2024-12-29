@@ -25,9 +25,24 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long usuarioId;
 
+    @Column(unique = true)
     private String nome;
 
     private String email;
+
+    private String estado;
+
+    private String cidade;
+
+    private String bairro;
+
+    private String rua;
+
+    private String cep;
+
+    private String numero;
+
+    private String complemento;
 
     private String tipo;
 
