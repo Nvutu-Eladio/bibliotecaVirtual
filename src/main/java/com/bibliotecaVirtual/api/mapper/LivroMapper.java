@@ -2,6 +2,7 @@ package com.bibliotecaVirtual.api.mapper;
 
 import com.bibliotecaVirtual.api.dto.request.LivroRequestDTO;
 import com.bibliotecaVirtual.api.dto.response.LivroResponseDTO;
+import com.bibliotecaVirtual.api.dto.LivroDTO;
 import com.bibliotecaVirtual.api.model.Livro;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

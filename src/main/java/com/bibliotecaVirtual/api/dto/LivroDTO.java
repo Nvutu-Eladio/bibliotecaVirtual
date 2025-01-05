@@ -1,4 +1,4 @@
-package com.bibliotecaVirtual.api.dto.response;
+package com.bibliotecaVirtual.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LivroResponseDTO {
-
-    @Getter
-    private Long livroId;
+public class LivroDTO {
 
     private String titulo;
 

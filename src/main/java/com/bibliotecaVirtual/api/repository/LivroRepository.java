@@ -12,5 +12,7 @@ public interface LivroRepository extends CrudRepository<Livro, Long> {
 
     Optional<Livro> findByTitulo(String titulo);
 
+    Livro findByDisponivel(boolean disponivel);
+
 //    Optional<Livro> findById(String id);
 }

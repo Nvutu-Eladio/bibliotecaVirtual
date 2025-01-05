@@ -38,5 +38,5 @@ public class Emprestimo {
 
     private LocalDate dataDevolucaoEmprestimo;
 
-    private String status;
+    private String status; // Valores possíveis: Pendente, Devolvido, Atrasado
 }

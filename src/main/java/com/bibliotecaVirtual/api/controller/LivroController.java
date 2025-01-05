@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/livros")
@@ -26,14 +25,12 @@ public class LivroController {
             @ApiResponse(responseCode = "409", description = "Livro já cadastrado no banco de dados")
     })
     @PostMapping
-    public ResponseEntity<LivroResponseDTO> criar(@RequestBody LivroRequestDTO requestDTO) {
+    public ResponseEntity<LivroResponseDTO> criar(@RequestBody LivroRequestDTO livroRequestDTO) {
 
-        LivroResponseDTO response = livroService.criar(requestDTO);
+        LivroResponseDTO response = livroService.criar(livroRequestDTO);
 
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(response.getLivroId())
-                .toUri()).body(response);
+        return ResponseEntity.ok(response);
+
     }
 
     @ApiResponses(value = {
@@ -62,7 +59,7 @@ public class LivroController {
             @ApiResponse(responseCode = "400", description = "Erro ao atualizar livro no banco de dados")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<LivroResponseDTO> atualizar(@PathVariable("id") String id, @RequestBody LivroRequestDTO requestDTO) {
+    public ResponseEntity<LivroResponseDTO> atualizar(@PathVariable("id") Long id, @RequestBody LivroRequestDTO requestDTO) {
         LivroResponseDTO responseDTO = livroService.atualizar(id, requestDTO);
         return ResponseEntity.ok().body(responseDTO);
     }
@@ -72,7 +69,7 @@ public class LivroController {
             @ApiResponse(responseCode = "400", description = "Livro não encontrado")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<LivroResponseDTO> apagar(@PathVariable("id") String id) {
+    public ResponseEntity<LivroResponseDTO> apagar(@PathVariable("id") Long id) {
         this.livroService.apagar(id);
         return ResponseEntity.noContent().build();
     }

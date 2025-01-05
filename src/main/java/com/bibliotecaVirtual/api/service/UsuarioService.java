@@ -2,8 +2,7 @@ package com.bibliotecaVirtual.api.service;
 
 import com.bibliotecaVirtual.api.client.viacep.ViaCepClient;
 import com.bibliotecaVirtual.api.dto.request.UsuarioRequestDTO;
-import com.bibliotecaVirtual.api.dto.response.UsuarioResponseDTO;
-import com.bibliotecaVirtual.api.exception.LivroNotFoundException;
+import com.bibliotecaVirtual.api.dto.response.UsuarioResponse;
 import com.bibliotecaVirtual.api.exception.UsuarioJaCadastradoException;
 import com.bibliotecaVirtual.api.exception.UsuarioNotFoundException;
 import com.bibliotecaVirtual.api.mapper.UsuarioMapper;
@@ -25,7 +24,7 @@ public class UsuarioService {
         this.viaCepClient = viaCepClient;
     }
 
-    public UsuarioResponseDTO criar(UsuarioRequestDTO requestDTO) throws UsuarioJaCadastradoException {
+    public UsuarioResponse criar(UsuarioRequestDTO requestDTO) throws UsuarioJaCadastradoException {
 
         if ((usuarioRepository.findByNome(requestDTO.getNome()) != null)) {
             throw new UsuarioJaCadastradoException("Usuario já cadastrado no banco de dados");
@@ -49,18 +48,18 @@ public class UsuarioService {
 
     }
 
-  public List<UsuarioResponseDTO> obterUsuario(){
+  public List<UsuarioResponse> obterUsuario(){
         return UsuarioMapper.INSTANCE.convertListEntityToList(usuarioRepository.findAll());
   }
 
-  public UsuarioResponseDTO obterUsuarioPorId(Long id) throws UsuarioNotFoundException {
+  public UsuarioResponse obterUsuarioPorId(Long id) throws UsuarioNotFoundException {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(()
                 -> new UsuarioNotFoundException("Usuario não encontrado"));
 
         return UsuarioMapper.INSTANCE.convertEntityToDto(usuario);
   }
 
-  public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO requestDTO) throws UsuarioNotFoundException {
+  public UsuarioResponse atualizar(Long id, UsuarioRequestDTO requestDTO) throws UsuarioNotFoundException {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(()
                 -> new UsuarioNotFoundException("Erro ao atualizar usuario no banco de dados"));
 

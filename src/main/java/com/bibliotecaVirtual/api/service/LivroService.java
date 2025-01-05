@@ -21,11 +21,11 @@ public class LivroService {
     }
 
 
-    public LivroResponseDTO criar(LivroRequestDTO requestDTO) {
+    public LivroResponseDTO criar(LivroRequestDTO livroRequestDTO) {
 
-        Livro livro = LivroMapper.INSTANCE.convertDtoToLivro(requestDTO);
+        Livro livro = LivroMapper.INSTANCE.convertDtoToLivro(livroRequestDTO);
 
-        if ((livroRepository.findByTitulo(requestDTO.getTitulo()).isPresent())) {
+        if ((livroRepository.findByTitulo(livroRequestDTO.getTitulo()).isPresent())) {
             throw new LivroJaCadastradoException("O livro já cadastrado no banco de dados");
         }
 
@@ -51,12 +51,13 @@ public class LivroService {
     }
 
 
-    public LivroResponseDTO atualizar(String id, LivroRequestDTO requestDTO) {
-        Livro livro = livroRepository.findById(Long.valueOf(id)).orElseThrow(() -> new LivroNotFoundException("Erro ao atualizar livro no banco de dados"));
+    public LivroResponseDTO atualizar(Long id, LivroRequestDTO requestDTO) {
+        Livro livro = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Erro ao atualizar livro no banco de dados"));
 
         if (!requestDTO.getTitulo().isEmpty()) livro.setTitulo((requestDTO.getTitulo()));
         if (!requestDTO.getAutor().isEmpty()) livro.setAutor((requestDTO.getAutor()));
         if (!requestDTO.getGenero().isEmpty()) livro.setAutor((requestDTO.getAutor()));
+        livro.setDisponivel(requestDTO.getDisponivel() !=null ? requestDTO.getDisponivel() : !livro.getDisponivel());
 
         livroRepository.save(livro);
 
@@ -64,8 +65,8 @@ public class LivroService {
     }
 
 
-    public void apagar(String id) {
-        Livro livro = this.livroRepository.findById(Long.valueOf(id)).orElseThrow(() -> new LivroNotFoundException("Livro não encontrado"));
+    public void apagar(Long id) {
+        Livro livro = this.livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Livro não encontrado"));
 
         this.livroRepository.delete(livro);
     }

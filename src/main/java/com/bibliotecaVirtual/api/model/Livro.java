@@ -1,6 +1,6 @@
 package com.bibliotecaVirtual.api.model;
 
-import com.bibliotecaVirtual.api.dto.request.LivroRequestDTO;
+import com.bibliotecaVirtual.api.dto.LivroDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,5 +38,4 @@ public class Livro {
 
     @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL)
     private List<Emprestimo> Emprestimos;
-
 }

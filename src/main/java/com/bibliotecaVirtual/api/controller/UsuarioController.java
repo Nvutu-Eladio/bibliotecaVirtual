@@ -2,7 +2,7 @@ package com.bibliotecaVirtual.api.controller;
 
 import com.bibliotecaVirtual.api.dto.request.UsuarioRequestDTO;
 import com.bibliotecaVirtual.api.dto.response.LivroResponseDTO;
-import com.bibliotecaVirtual.api.dto.response.UsuarioResponseDTO;
+import com.bibliotecaVirtual.api.dto.response.UsuarioResponse;
 import com.bibliotecaVirtual.api.exception.UsuarioJaCadastradoException;
 import com.bibliotecaVirtual.api.exception.UsuarioNotFoundException;
 import com.bibliotecaVirtual.api.repository.UsuarioRepository;
@@ -11,8 +11,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -29,14 +36,11 @@ public class UsuarioController {
             @ApiResponse(responseCode = "409", description = "Usuario já cadastrado no banco de dados")
     })
     @PostMapping
-    public ResponseEntity<UsuarioResponseDTO> criar(@RequestBody UsuarioRequestDTO requestDTO) throws UsuarioJaCadastradoException {
+    public ResponseEntity<UsuarioResponse> criar(@RequestBody UsuarioRequestDTO requestDTO) throws UsuarioJaCadastradoException {
 
-        UsuarioResponseDTO response = usuarioService.criar(requestDTO);
+        UsuarioResponse response = usuarioService.criar(requestDTO);
 
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(response.getUsuarioId())
-                .toUri()).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @ApiResponses(value = {
@@ -56,8 +60,8 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Erro ao atualizar usuario no banco de dados")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDTO> atualizar(@PathVariable("id") Long id, @RequestBody UsuarioRequestDTO requestDTO) throws UsuarioNotFoundException {
-        UsuarioResponseDTO responseDTO = usuarioService.atualizar(id, requestDTO);
+    public ResponseEntity<UsuarioResponse> atualizar(@PathVariable("id") Long id, @RequestBody UsuarioRequestDTO requestDTO) throws UsuarioNotFoundException {
+        UsuarioResponse responseDTO = usuarioService.atualizar(id, requestDTO);
         return ResponseEntity.ok().body(responseDTO);
     }
 

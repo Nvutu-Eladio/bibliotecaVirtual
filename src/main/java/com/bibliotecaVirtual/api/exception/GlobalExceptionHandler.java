@@ -27,4 +27,14 @@ public class GlobalExceptionHandler  {
     public ResponseEntity<String> handleUsuarioNotFoundException(UsuarioNotFoundException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+
+    @ExceptionHandler(LivroIndisponivelException.class)
+    public ResponseEntity<String> handleLivroIndisponivelException(LivroIndisponivelException ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(EmprestimoNotFoundException.class)
+    public ResponseEntity<String> handleEmprestimoNotFoundException(EmprestimoNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 }

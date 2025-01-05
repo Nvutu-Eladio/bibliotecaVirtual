@@ -1,6 +1,5 @@
-package com.bibliotecaVirtual.api.dto.response;
+package com.bibliotecaVirtual.api.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,23 +11,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-public class EmprestimoResponseDTO {
-
-    private Long emprestimoId;
+public class EmprestimoDTO {
 
     private LocalDate dataEmprestimo;
 
     private LocalDate dataDevolucaoEmprestimo;
 
     private String status;
-
-    private Long usuarioId;
-
-    private String nome;
-
-    private Long livroId;
-
-    private String titulo;
-
-
 }

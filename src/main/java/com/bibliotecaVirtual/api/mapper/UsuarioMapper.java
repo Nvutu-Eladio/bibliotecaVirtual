@@ -1,7 +1,7 @@
 package com.bibliotecaVirtual.api.mapper;
 
 import com.bibliotecaVirtual.api.dto.request.UsuarioRequestDTO;
-import com.bibliotecaVirtual.api.dto.response.UsuarioResponseDTO;
+import com.bibliotecaVirtual.api.dto.response.UsuarioResponse;
 import com.bibliotecaVirtual.api.model.Usuario;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -37,7 +37,7 @@ public interface UsuarioMapper {
     @Mapping(target = "numero", source = "numero")
     @Mapping(target = "complemento", source = "complemento")
     @Mapping(target = "tipo", source = "tipo")
-    UsuarioResponseDTO convertEntityToDto(Usuario usuario);
+    UsuarioResponse convertEntityToDto(Usuario usuario);
 
-    List<UsuarioResponseDTO> convertListEntityToList(Iterable<Usuario> usuarios);
+    List<UsuarioResponse> convertListEntityToList(Iterable<Usuario> usuarios);
 }
