@@ -1,10 +1,6 @@
-
 # Biblioteca Virtual
 
 A API de Biblioteca Virtual é um sistema para gerenciar o acervo de livros, usuários, e os empréstimos/devoluções de livros. Ela foi desenvolvida com Java usando Spring Boot, JPA/Hibernate para persistência de dados, e um banco de dados relacional PostgreSQL.
-
-
-
 
 ## Funcionalidades Principais
 
@@ -24,9 +20,6 @@ A API de Biblioteca Virtual é um sistema para gerenciar o acervo de livros, usu
 - Registrar empréstimos de livros.
 - Registrar devoluções, atualizando a disponibilidade do livro.
 - Aplicar multas para devoluções atrasadas (opcional).
-
-
-
 
 ## Fluxo de Funcionamento
 
@@ -95,7 +88,6 @@ Executar o Projeto
   mvn spring-boot:run
 ```
 
-
 Documentação Interativa
 
 Acesse a documentação interativa da API em:
@@ -103,5 +95,3 @@ Acesse a documentação interativa da API em:
 ```bash
   http://localhost:8080/swagger-ui.html
 ```
-
-
