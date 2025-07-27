@@ -2,13 +2,22 @@ package com.bibliotecaVirtual.api.controller;
 
 import com.bibliotecaVirtual.api.dto.request.LivroRequestDTO;
 import com.bibliotecaVirtual.api.dto.response.LivroResponseDTO;
-import com.bibliotecaVirtual.api.repository.LivroRepository;
 import com.bibliotecaVirtual.api.service.LivroService;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/livros")
@@ -18,7 +27,9 @@ public class LivroController {
     private LivroService livroService;
 
     @Autowired
-    private LivroRepository livroRepository;
+    private MeterRegistry registry;
+
+    Logger logger = org.slf4j.LoggerFactory.getLogger(LivroController.class);
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201"),
@@ -28,6 +39,9 @@ public class LivroController {
     public ResponseEntity<LivroResponseDTO> criar(@RequestBody LivroRequestDTO livroRequestDTO) {
 
         LivroResponseDTO response = livroService.criar(livroRequestDTO);
+
+        logger.info("Livro criado com sucesso: {}", response.getTitulo());
+        registry.counter("livro.criado", "titulo", response.getTitulo()).increment();
 
         return ResponseEntity.ok(response);
 
